@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil de Puesto — [PUESTO] | [CLIENTE]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:        #0c2b40;
+      --cyan:        #12a9cc;
+      --gold:        #d3ab6d;
+      --surface:     #F5F7FA;
+      --surface-alt: #E8ECF0;
+      --text:        #1A1A2E;
+      --muted:       #6B7280;
+      --line:        rgba(12,43,64,0.12);
+      --bg:          #F0F3F6;
+      --white:       #ffffff;
+      --shadow:      0 12px 28px rgba(12,43,64,0.10);
+      --radius:      18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    body { padding: 18px; }
+    .document { max-width: 980px; margin: 0 auto; }
+    .sheet {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin: 0 auto 22px;
+    }
+    .content { padding: 34px 38px 40px; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 30px 34px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .brand-lockup {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    /* Logo cliente — izquierda */
+    .logo-cliente-wrap {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      width: fit-content;
+      min-width: 160px;
+      min-height: 52px;
+    }
+    .logo-cliente-wrap img {
+      display: block;
+      max-height: 36px;
+      max-width: 180px;
+      width: auto;
+      height: auto;
+    }
+    .logo-cliente-placeholder {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    /* Logo DETA — derecha */
+    .logo-deta-wrap {
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-start;
+      padding-top: 4px;
+    }
+    .logo-deta-wrap img {
+      display: block;
+      width: 140px;
+      height: auto;
+      opacity: 0.95;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold);
+      margin: 0 0 10px;
+    }
+    h1 {
+      margin: 0;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .subtitle {
+      margin-top: 12px;
+      max-width: 720px;
+      font-size: 17px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.5;
+    }
+    .accent-bar {
+      margin-top: 22px;
+      width: 80px; height: 5px;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    /* ── SECTIONS ───────────────────────────────────── */
+    .section {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+    }
+    .section-title {
+      margin: 0;
+      padding: 15px 20px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+    .section-body { padding: 20px; }
+    .objective {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* ── TABLA ESTRATÉGICA ──────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 14px;
+    }
+    thead { display: table-header-group; }
+    tr, td, th { page-break-inside: avoid; }
+    th {
+      background: var(--navy);
+      color: var(--white);
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    tbody tr:nth-child(odd) td { background: var(--surface); }
+    tbody tr:last-child td { border-bottom: none; }
+    .area-name { font-weight: 700; color: var(--navy); line-height: 1.35; }
+    .weight-cell {
+      text-align: center;
+      font-weight: 700;
+      color: var(--cyan);
+      font-size: 15px;
+    }
+
+    ul.clean { margin: 0; padding-left: 18px; }
+    ul.clean li { margin: 0 0 5px; }
+
+    /* ── ÁREA BLOCKS (funciones) ─────────────────────── */
+    .area-block {
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .area-block:last-child { margin-bottom: 0; }
+    .area-head {
+      background: linear-gradient(90deg, rgba(12,43,64,0.06), rgba(12,43,64,0.02));
+      border-bottom: 1px solid var(--line);
+      padding: 14px 16px 12px;
+    }
+    .area-title {
+      margin: 0;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .area-strips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(211,171,109,0.12);
+      color: #7a5c1e;
+      border: 1px solid rgba(211,171,109,0.35);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .cols-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      padding: 16px;
+    }
+    .subbox {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: var(--white);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .subbox h4 {
+      margin: 0 0 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* ── COMPETENCIAS ────────────────────────────────── */
+    .competencies-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .competencies-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 11px 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      text-align: left;
+    }
+    .competencies-table th:nth-child(2),
+    .competencies-table th:nth-child(3) { text-align: center; width: 100px; }
+    .competencies-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    .competencies-table tbody tr:nth-child(odd) td { background: var(--surface); }
+    .competencies-table tbody tr:last-child td { border-bottom: none; }
+    .comp-name { font-weight: 600; color: var(--navy); display: block; margin-bottom: 3px; }
+    .comp-desc { font-size: 13px; color: var(--muted); }
+    .comp-weight {
+      text-align: center;
+      font-weight: 700;
+      color: var(--cyan);
+      font-size: 15px;
+    }
+    .nivel-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .nivel-A { background: rgba(12,43,64,0.12); color: var(--navy); }
+    .nivel-B { background: rgba(18,169,204,0.12); color: #0a7a9a; }
+    .nivel-C { background: rgba(211,171,109,0.18); color: #7a5c1e; }
+
+    /* ── FRONTERAS ───────────────────────────────────── */
+    .boundary {
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .boundary:last-child { margin-bottom: 0; }
+    .boundary-head {
+      padding: 13px 16px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .boundary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .boundary-col {
+      padding: 16px;
+      border-right: 1px solid var(--line);
+      background: var(--white);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .boundary-col:last-child { border-right: none; background: var(--surface); }
+    .boundary-col h5 {
+      margin: 0 0 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+
+    /* ── REQUISITOS ──────────────────────────────────── */
+    .req-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .req-box {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .req-head {
+      padding: 11px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .req-head.obligatorio {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .req-head.deseable {
+      background: rgba(211,171,109,0.18);
+      color: #7a5c1e;
+      border-bottom: 1px solid rgba(211,171,109,0.3);
+    }
+    .req-body {
+      padding: 14px;
+      font-size: 14px;
+    }
+    .req-body ul { margin: 0; padding-left: 18px; }
+    .req-body li { margin: 0 0 6px; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .doc-footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .doc-footer .deta-brand {
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── PRINT ───────────────────────────────────────── */
+    @page { size: A4; margin: 14mm; }
+    @media print {
+      html, body { background: #fff !important; padding: 0; margin: 0; }
+      .document { max-width: none; }
+      .sheet { margin: 0; box-shadow: none; border-radius: 0; overflow: visible; }
+      .hero, th, .boundary-head, .area-head, .strip, .req-head,
+      .nivel-badge, .comp-weight, .weight-cell,
+      td, .boundary-col, .subbox,
+      tbody tr:nth-child(odd) td, .competencies-table tbody tr:nth-child(odd) td,
+      .req-head.obligatorio, .req-head.deseable {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* ── Page break control ── */
+      .section { break-inside: avoid; }
+      .section-title { break-after: avoid; }
+      .area-block { break-inside: avoid; }
+      .boundary { break-inside: avoid; margin-bottom: 8px; }
+      .subbox { break-inside: avoid; }
+
+      /* Competencias — forzar página nueva para que la tabla no se corte */
+      .section:has(.competencies-table) { break-before: page; }
+
+      /* Fronteras — evitar corte interno (ahora son solo 2 bloques cortos) */
+      .section:has(.boundary) { break-inside: avoid; }
+
+      /* Requisitos — evitar corte */
+      .section:has(.req-grid) { break-inside: avoid; }
+
+      /* Tablas: repetir thead en cada página si Chrome lo permite */
+      thead { display: table-header-group; }
+      tr { break-inside: avoid; }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media screen and (max-width: 900px) {
+      body { padding: 10px; }
+      .content { padding: 20px; }
+      .hero { padding: 22px; }
+      h1 { font-size: 28px; }
+      .subtitle { font-size: 16px; }
+      .cols-2, .req-grid, .boundary-grid, .hero-top { grid-template-columns: 1fr; }
+      .boundary-col { border-right: none; border-bottom: 1px solid var(--line); }
+      .boundary-col:last-child { border-bottom: none; }
+      .logo-deta-wrap { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="document">
+    <section class="sheet">
+
+      <!-- ── HERO ─────────────────────────────────── -->
+      <div class="hero">
+        <div class="hero-top">
+          <div class="brand-lockup">
+
+            <!-- LOGO CLIENTE: reemplazar src con ruta o URL del logo del cliente -->
+            <div class="logo-cliente-wrap">
+              <!-- <img src="[RUTA_LOGO_CLIENTE]" alt="[NOMBRE CLIENTE] logo" /> -->
+              <span class="logo-cliente-placeholder">[ Logo del cliente ]</span>
+            </div>
+
+            <div>
+              <div class="eyebrow">Perfil de Puesto</div>
+              <h1>[Nombre del Puesto]</h1>
+              <div class="subtitle">[Objetivo breve del puesto — 1 oración que describe el resultado estratégico del rol para la organización.]</div>
+              <div class="accent-bar"></div>
+            </div>
+          </div>
+
+          <!-- Logo DETA — esquina superior derecha -->
+          <div class="logo-deta-wrap">
+            <img
+              src="/Users/joelestrada/.deta/assets/logo-deta-white.png"
+              alt="DETA Consultores"
+            />
+          </div>
+        </div>
+      </div><!-- /hero -->
+
+      <div class="content">
+
+        <!-- ── OBJETIVO ─────────────────────────────── -->
+        <section class="section">
+          <h2 class="section-title">Objetivo del Puesto</h2>
+          <div class="section-body objective">
+            [Descripción completa del objetivo. Verbo de acción + qué se logra + para quién o para la organización. Sin jerga. Orientado a resultados estratégicos.]
+          </div>
+        </section>
+
+        <!-- ── TABLA ESTRATÉGICA ─────────────────────── -->
+        <section class="section">
+          <h2 class="section-title">Tabla Estratégica del Puesto</h2>
+          <div class="section-body" style="padding:0;">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:26%;">Área de efectividad</th>
+                  <th style="width:30%;">KPI(s)</th>
+                  <th>Entregable(s)</th>
+                  <th style="width:8%; text-align:center;">Peso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="area-name">[Área 1]</div></td>
+                  <td>
+                    <ul class="clean">
+                      <li>[KPI principal — medible]</li>
+                      <li>[KPI secundario — opcional]</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="clean">
+                      <li>[Entregable concreto]</li>
+                      <li>[Entregable concreto]</li>
+                    </ul>
+                  </td>
+                  <td class="weight-cell">XX%</td>
+                </tr>
+                <tr>
+                  <td><div class="area-name">[Área 2]</div></td>
+                  <td>
+                    <ul class="clean">
+                      <li>[KPI principal]</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="clean">
+                      <li>[Entregable concreto]</li>
+                    </ul>
+                  </td>
+                  <td class="weight-cell">XX%</td>
+                </tr>
+                <tr>
+                  <td><div class="area-name">[Área 3]</div></td>
+                  <td>
+                    <ul class="clean">
+                      <li>[KPI principal]</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class="clean">
+                      <li>[Entregable concreto]</li>
+                    </ul>
+                  </td>
+                  <td class="weight-cell">XX%</td>
+                </tr>
+                <!-- Agregar filas según número de áreas. Pesos deben sumar 100%. -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── FUNCIONES POR ÁREA ────────────────────── -->
+        <section class="section">
+          <h2 class="section-title">Funciones por Área de Efectividad</h2>
+          <div class="section-body">
+
+            <!-- Repetir este bloque por cada área de efectividad -->
+            <div class="area-block">
+              <div class="area-head">
+                <h3 class="area-title">[Área 1]</h3>
+                <div class="area-strips">
+                  <span class="strip">[Tag 1]</span>
+                  <span class="strip">[Tag 2]</span>
+                </div>
+              </div>
+              <div class="cols-2">
+                <div class="subbox">
+                  <h4>Funciones clave</h4>
+                  <ul class="clean">
+                    <li>[Función 1 — verbo infinitivo + objeto + contexto]</li>
+                    <li>[Función 2]</li>
+                    <li>[Función 3]</li>
+                    <li>[Función 4]</li>
+                    <li>[Función 5]</li>
+                  </ul>
+                </div>
+                <div class="subbox">
+                  <h4>Conocimientos técnicos</h4>
+                  <ul class="clean">
+                    <li>[Herramienta / conocimiento requerido]</li>
+                    <li>[Herramienta / conocimiento requerido]</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="area-block">
+              <div class="area-head">
+                <h3 class="area-title">[Área 2]</h3>
+                <div class="area-strips">
+                  <span class="strip">[Tag]</span>
+                </div>
+              </div>
+              <div class="cols-2">
+                <div class="subbox">
+                  <h4>Funciones clave</h4>
+                  <ul class="clean">
+                    <li>[Función 1]</li>
+                    <li>[Función 2]</li>
+                    <li>[Función 3]</li>
+                    <li>[Función 4]</li>
+                    <li>[Función 5]</li>
+                  </ul>
+                </div>
+                <div class="subbox">
+                  <h4>Conocimientos técnicos</h4>
+                  <ul class="clean">
+                    <li>[Conocimiento requerido]</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Agregar bloques adicionales según número de áreas -->
+
+          </div>
+        </section>
+
+        <!-- ── COMPETENCIAS ──────────────────────────── -->
+        <section class="section">
+          <h2 class="section-title">Competencias</h2>
+          <div class="section-body" style="padding:0;">
+            <table class="competencies-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th style="text-align:left; width:auto;">Competencia</th>
+                  <th>Peso</th>
+                  <th>Nivel esperado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:center; color:var(--muted); font-size:13px;">1</td>
+                  <td>
+                    <span class="comp-name">[Orientación a resultados]</span>
+                    <span class="comp-desc">[Descripción breve de la competencia en contexto del puesto]</span>
+                  </td>
+                  <td class="comp-weight">XX%</td>
+                  <td style="text-align:center;"><span class="nivel-badge nivel-B">B (4)</span></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; color:var(--muted); font-size:13px;">2</td>
+                  <td>
+                    <span class="comp-name">[Comunicación efectiva]</span>
+                    <span class="comp-desc">[Descripción breve]</span>
+                  </td>
+                  <td class="comp-weight">XX%</td>
+                  <td style="text-align:center;"><span class="nivel-badge nivel-B">B (4)</span></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; color:var(--muted); font-size:13px;">3</td>
+                  <td>
+                    <span class="comp-name">[Liderazgo]</span>
+                    <span class="comp-desc">[Descripción breve]</span>
+                  </td>
+                  <td class="comp-weight">XX%</td>
+                  <td style="text-align:center;"><span class="nivel-badge nivel-A">A (5)</span></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; color:var(--muted); font-size:13px;">4</td>
+                  <td>
+                    <span class="comp-name">[Adaptabilidad]</span>
+                    <span class="comp-desc">[Descripción breve]</span>
+                  </td>
+                  <td class="comp-weight">XX%</td>
+                  <td style="text-align:center;"><span class="nivel-badge nivel-C">C (3)</span></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; color:var(--muted); font-size:13px;">5</td>
+                  <td>
+                    <span class="comp-name">[Toma de decisiones]</span>
+                    <span class="comp-desc">[Descripción breve]</span>
+                  </td>
+                  <td class="comp-weight">XX%</td>
+                  <td style="text-align:center;"><span class="nivel-badge nivel-B">B (4)</span></td>
+                </tr>
+                <!-- Exactamente 5 competencias. Pesos deben sumar 100%. Niveles: A=Avanzado, B=Aplicado, C=Básico -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── FRONTERAS ─────────────────────────────── -->
+        <section class="section">
+          <h2 class="section-title">Fronteras del Puesto</h2>
+          <div class="section-body">
+
+            <div class="boundary">
+              <div class="boundary-head">Sí le corresponde</div>
+              <div class="boundary-col" style="border-right:none;">
+                <ul class="clean">
+                  <li>[Función/decisión/responsabilidad que SÍ es de este puesto]</li>
+                  <li>[Otra función que puede y debe hacer sin pedir permiso]</li>
+                  <li>[Otro ejemplo]</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="boundary">
+              <div class="boundary-head">No le corresponde</div>
+              <div class="boundary-col" style="border-right:none;">
+                <ul class="clean">
+                  <li>[Función que es de otro puesto — aunque tenga capacidad o acceso]</li>
+                  <li>[Otra función que NO debe hacer]</li>
+                  <li>[Otro ejemplo]</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ── REQUISITOS ─────────────────────────────── -->
+        <section class="section">
+          <h2 class="section-title">Requisitos del Candidato</h2>
+          <div class="section-body">
+            <div class="req-grid">
+              <div class="req-box">
+                <div class="req-head obligatorio">Requisitos obligatorios</div>
+                <div class="req-body">
+                  <ul>
+                    <li>[Escolaridad mínima requerida]</li>
+                    <li>[Años de experiencia mínima en puesto similar]</li>
+                    <li>[Herramienta / software / certificación requerida]</li>
+                    <li>[Sector o giro de experiencia si aplica]</li>
+                    <li>[Otro requisito indispensable]</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="req-box">
+                <div class="req-head deseable">Deseable</div>
+                <div class="req-body">
+                  <ul>
+                    <li>[Posgrado, maestría o especialización]</li>
+                    <li>[Certificación o diplomado complementario]</li>
+                    <li>[Experiencia en industria complementaria]</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── FOOTER DEL DOCUMENTO ──────────────────── -->
+        <div class="doc-footer">
+          <span><span class="deta-brand">DETA Consultores</span> · detaconsultores.com · Confidencial</span>
+          <span>[CLIENTE] · [FECHA]</span>
+        </div>
+
+      </div><!-- /content -->
+    </section>
+  </div><!-- /document -->
+</body>
+
+<!--DETA_MATCHING_DATA
+{
+  "puesto": "",
+  "cliente": "",
+  "fecha": "",
+  "competencias": [
+    {"nombre": "", "peso": 0, "nivel_requerido": ""},
+    {"nombre": "", "peso": 0, "nivel_requerido": ""},
+    {"nombre": "", "peso": 0, "nivel_requerido": ""},
+    {"nombre": "", "peso": 0, "nivel_requerido": ""},
+    {"nombre": "", "peso": 0, "nivel_requerido": ""}
+  ],
+  "requisitos": {
+    "escolaridad_minima": "",
+    "anos_experiencia_min": 0,
+    "herramientas": [],
+    "sector": ""
+  },
+  "rango_salarial": {
+    "min": 0,
+    "max": 0,
+    "moneda": "MXN",
+    "tipo": "neto"
+  }
+}
+-->
+
+</html>
