@@ -2,6 +2,13 @@
 deta_pdf_base.py
 ────────────────────────────────────────────────────────
 Template base para todos los PDFs de DETA Consultores.
+Alineado con Manual de Identidad DETA v2.0 Tech Edition.
+
+Scope: paleta CLÁSICA (navy/gold/cyan/surface/text).
+Los tokens Tech (scales 50-950, slate, semánticos, dark mode)
+son SOLO para digital — no usar en print. Regla Tech Edition:
+"cyan como acento en tinta OK; escalas y semánticos solo digital".
+
 Importar en cualquier script de documento — nunca redefinir
 colores, fuentes o estructura de página aquí documentados.
 
@@ -48,14 +55,27 @@ LOGO_PATH = (
     "Mi unidad/Agent/05_JOEL_OPERACION/Marca/logo-deta-cyan.svg"
 )
 
+# Logos PNG — detección automática de entorno (Cowork sandbox vs macOS local)
+# Cowork monta Agent/Templates/skills/ en /mnt/ → logos en /mnt/assets/
+# macOS local → ~/.deta/assets/
+def _resolve_logo(filename: str) -> str:
+    candidates = [
+        os.path.expanduser(f"~/mnt/Agent/Templates/skills/assets/{filename}"),  # Cowork (~/mnt/ → /sessions/<id>/mnt/)
+        f"/mnt/assets/{filename}",                                               # Cowork mount alternativo
+        f"/Users/joelestrada/.deta/assets/{filename}",                          # macOS local
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    return candidates[-1]  # fallback a ruta local (draw_header maneja el fallo)
+
 # PNG oficial para PDFs — 800×327px, RGBA, fondo transparente
-# Ruta local (~/.deta/assets/) para que Cowork acceda sin depender de Google Drive montado
 # Usar sobre fondos CLAROS (blanco, surface)
-LOGO_PNG_PATH = "/Users/joelestrada/.deta/assets/logo-deta-cyan.png"
+LOGO_PNG_PATH = _resolve_logo("logo-deta-cyan.png")
 
 # PNG blanco — para fondos OSCUROS (navy)
 # Nunca usar logo cyan sobre navy ni logo blanco sobre blanco
-LOGO_WHITE_PATH = "/Users/joelestrada/.deta/assets/logo-deta-white.png"
+LOGO_WHITE_PATH = _resolve_logo("logo-deta-white.png")
 
 # Directorios de fuentes — orden de prioridad: Google Fonts, macOS, Liberation
 _FONT_DIRS = [
