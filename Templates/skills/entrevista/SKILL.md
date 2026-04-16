@@ -1,37 +1,16 @@
 ---
 name: entrevista
-description: Genera dos PDFs estándar DETA a partir de una transcripción de entrevista — Minuta y Reporte de Candidato. Actívate con: "minuta de [nombre]", "procesa entrevista de [nombre]", "genera documentos de [nombre]", "reporte de candidato [nombre]", "procesa la entrevista", "genera los dos documentos", "con scoring", "evalúa al candidato", "score del candidato".
+description: Genera el Reporte de Candidato en PDF y el JSON sidecar a partir de una transcripción de entrevista. Actívate con: "procesa entrevista de [nombre]", "genera documentos de [nombre]", "reporte de candidato [nombre]", "procesa la entrevista", "genera el reporte", "con scoring", "evalúa al candidato", "score del candidato".
 ---
 
-# Entrevista — Generación de Documentos PDF desde Transcripción
+# Entrevista — Reporte de Candidato PDF desde Transcripción
 
-Procesa una transcripción de entrevista y genera dos PDFs estándar DETA usando `deta_pdf_base.py`.
+Procesa una transcripción de entrevista y genera el Reporte de Candidato en PDF más el JSON sidecar, usando `deta_pdf_base.py`.
 Nunca redefinir colores, fuentes ni estructura — todo viene del template base.
 
----
+> **NotebookLM — No se usa en este flujo.** No invocar notebooklm en ningún paso. Leer el CV directamente con pdfplumber si es necesario.
 
 ---
-
-## 0 — Notebook del proceso (opcional — ahorra tokens)
-
-Si existe un notebook activo para este proceso de reclutamiento, usarlo para extraer
-datos del CV antes del scoring. Esto reemplaza la lectura directa del PDF por Claude.
-
-```bash
-# Activar el notebook del proceso (guardado en el JSON del proceso o en el prompt)
-notebooklm use [NOTEBOOK_ID]
-
-# Añadir el CV si aún no está como fuente
-notebooklm source add [RUTA_CV]
-
-# Extraer datos clave — retorna ~200 palabras en vez de pasar el PDF completo
-notebooklm ask "Para [NOMBRE], extrae del CV: nombre completo, email, teléfono, años de experiencia total, último puesto y empresa, escolaridad, y las 5 competencias más relevantes" --save-as-note --note-title "Extracto CV [NOMBRE]"
-```
-
-Usar el extracto devuelto como fuente de datos en los pasos 2 y 3 (contacto y scoring).
-
-**Si no hay notebook activo → continuar el flujo normal leyendo el CV directamente.**
-No bloquear por ausencia de notebook.
 
 ## Flujo de trabajo
 
@@ -39,10 +18,9 @@ No bloquear por ausencia de notebook.
 1. Localizar transcripción en 00_inbox/
 2. Si hay perfil de puesto (HTML o PDF) + CV → calcular score DETA
 3. Extraer datos de la transcripción por sección
-4. Generar Minuta usando deta_pdf_base.py
-5. Generar Reporte de Candidato con score integrado (si aplica)
-6. Guardar datos_[Nombre]_[YYYYMMDD].json junto a los PDFs (sidecar para pool)
-7. Confirmar archivos generados
+4. Generar Reporte de Candidato con score integrado (si aplica)
+5. Guardar datos_[Nombre]_[YYYYMMDD].json junto al PDF (sidecar para pool)
+6. Confirmar archivos generados
 ```
 
 **Inputs opcionales para scoring:**
@@ -109,7 +87,7 @@ Para extraer el nombre del candidato: tomar el nombre del archivo o del encabeza
 
 ---
 
-## 2 — Reglas de producción (aplicar en los tres documentos)
+## 2 — Reglas de producción (aplicar en el documento y el JSON)
 
 1. **No inventar datos** — si algo no está en la transcripción, omitir la sección o marcarla como `[No mencionado]`
 2. **No parafrasear en exceso** — citas directas del candidato entre comillas cuando sea relevante
@@ -120,67 +98,7 @@ Para extraer el nombre del candidato: tomar el nombre del archivo o del encabeza
 
 ---
 
-## 3 — Documento 1: Minuta de Entrevista
-
-**Propósito:** Registro fiel de lo que ocurrió en la sesión. Sin interpretación — hechos y dichos.
-
-**Nomenclatura:** `Minuta_[Nombre]_[YYYYMMDD].pdf`
-
-### Secciones
-
-| Sección | Contenido | Fuente |
-|---|---|---|
-| Encabezado | Candidato, Puesto, Fecha, Entrevistador | Transcripción / metadatos |
-| Participantes | Nombres y roles de todos los presentes | Transcripción |
-| Contexto | Empresa del candidato, puesto actual, motivo de contacto | Transcripción |
-| Desarrollo | Cronología de temas tratados — sin evaluación | Transcripción |
-| Compromisos | Próximos pasos acordados en la sesión | Transcripción |
-| Observaciones | Aspectos logísticos o de contexto relevantes | Transcripción |
-
-### Estructura de página
-
-```python
-from deta_pdf_base import *
-
-def generar_minuta(transcripcion: dict, output_path: str):
-    c, W, H = new_doc(output_path, f"Minuta — {transcripcion['nombre']}")
-
-    draw_header(c, doc_title="MINUTA DE ENTREVISTA")
-    draw_footer(c, page_num=1, label="Confidencial — DETA Consultores")
-
-    x, y, col_w, _ = content_area()
-
-    # Título
-    text_h1(c, f"Minuta — {transcripcion['nombre']}", x, y)
-    y -= 10 * mm
-    rule(c, x, y, col_w)
-    y -= 8 * mm
-
-    # Ficha de datos
-    y = data_row(c, "CANDIDATO",     transcripcion['nombre'],       x, y, col_w, False)
-    y = data_row(c, "PUESTO",        transcripcion['puesto'],        x, y, col_w, True)
-    y = data_row(c, "FECHA",         transcripcion['fecha'],         x, y, col_w, False)
-    y = data_row(c, "ENTREVISTADOR", transcripcion['entrevistador'], x, y, col_w, True)
-    y -= 8 * mm
-
-    # Secciones de contenido
-    for seccion, contenido in transcripcion['secciones'].items():
-        section_tag(c, seccion.upper(), x, y)
-        y -= 10 * mm
-        y = text_wrap(c, contenido, x, y, col_w, size=9, leading=14)
-        y -= 8 * mm
-        if y < 40 * mm:          # salto de página si queda poco espacio
-            new_page(c)
-            draw_header(c, doc_title="MINUTA DE ENTREVISTA")
-            draw_footer(c, page_num=2, label="Confidencial — DETA Consultores")
-            x, y, col_w, _ = content_area()
-
-    c.save()
-```
-
----
-
-## 4 — Documento 2: Reporte de Candidato
+## 3 — Documento: Reporte de Candidato
 
 **Propósito:** Documento completo para expediente. Incluye todo lo relevante para decisiones de contratación o seguimiento.
 
@@ -247,11 +165,10 @@ if score_data:
 
 ---
 
-## 5 — Output esperado
+## 4 — Output esperado
 
 ```
 00_inbox/output/
-  Minuta_[Nombre]_[YYYYMMDD].pdf
   ReporteCandidato_[Nombre]_[YYYYMMDD].pdf
   datos_[Nombre]_[YYYYMMDD].json          ← sidecar para reporte de pool
 ```
@@ -264,8 +181,7 @@ fecha_hoy = datetime.now().strftime("%Y%m%d")
 nombre_normalizado = nombre.replace(" ", "_")
 
 rutas = {
-    "minuta":    f"00_inbox/output/Minuta_{nombre_normalizado}_{fecha_hoy}.pdf",
-    "reporte":   f"00_inbox/output/ReporteCandidato_{nombre_normalizado}_{fecha_hoy}.pdf",
+    "reporte":    f"00_inbox/output/ReporteCandidato_{nombre_normalizado}_{fecha_hoy}.pdf",
     "datos_json": f"00_inbox/output/datos_{nombre_normalizado}_{fecha_hoy}.json",
 }
 ```
@@ -338,14 +254,13 @@ def extraer_contacto_cv(ruta_cv):
 
 ---
 
-## 6 — Confirmación al terminar
+## 5 — Confirmación al terminar
 
 Al finalizar la generación, reportar:
 
 ```
-✅ Tres archivos generados en 00_inbox/output/
+✅ Dos archivos generados en 00_inbox/output/
 
-  📄 Minuta_[Nombre]_[YYYYMMDD].pdf           — X KB
   📄 ReporteCandidato_[Nombre]_[YYYYMMDD].pdf  — X KB
   📋 datos_[Nombre]_[YYYYMMDD].json            — sidecar para reporte de pool
 
@@ -356,11 +271,11 @@ Score DETA: XX/100 — [Nivel]       ← incluir solo si se calculó
 Recomendado: Sí / No / En espera
 ```
 
-Si algún documento no pudo generarse (datos insuficientes), reportarlo explícitamente en lugar de omitirlo en silencio.
+Si el archivo no pudo generarse (datos insuficientes), reportarlo explícitamente en lugar de omitirlo en silencio.
 
 ---
 
-## 7 — Dependencias
+## 6 — Dependencias
 
 ```python
 # Al inicio de cualquier script que use este skill:
