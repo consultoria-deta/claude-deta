@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "criterios-afectan-score",
+  "prompt": "Scorea a David Salatiel Mata García (AFORE + automotriz + industrial) para Ejecutivo de Ventas con criterios del cliente que prefieren financiero/automotriz.",
+  "assertions": [
+    {
+      "name": "score_above_75",
+      "description": "El score total es ≥ 75 (Sólido o superior)"
+    },
+    {
+      "name": "criterios_cliente_in_evidence",
+      "description": "La evidencia de experiencia_tecnica menciona explícitamente AFORE/automotriz en relación con los criterios del cliente — no solo lista el CV"
+    },
+    {
+      "name": "deta_dimensions_used",
+      "description": "El scoring usa las dimensiones DETA: experiencia_tecnica, fit_organizacional, escolaridad, condiciones"
+    },
+    {
+      "name": "must_haves_bonus_dimension_present",
+      "description": "El resultado incluye la dimensión must_haves_bonus como parte del score"
+    },
+    {
+      "name": "concrete_evidence_with_metrics",
+      "description": "La evidencia cita datos concretos del CV (empresa, métrica, logro) — no afirmaciones genéricas"
+    }
+  ]
+}

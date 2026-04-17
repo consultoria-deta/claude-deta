@@ -1,0 +1,23 @@
+{
+  "eval_id": 3,
+  "eval_name": "kickoff-preguntas-obligatorias",
+  "prompt": "quiero analizar los candidatos que tengo en OCC para la vacante de Gerente de Operaciones, el job_id es 88776 y el sheet es 1BxkZ9QwertySheetId456",
+  "assertions": [
+    {
+      "name": "asked_must_have_question",
+      "description": "Preguntó explícitamente por el requisito no negociable (must-have) antes de proceder"
+    },
+    {
+      "name": "asked_sector_or_criteria_preference",
+      "description": "Preguntó por sectores preferidos/excluidos o criterios del cliente antes de proceder"
+    },
+    {
+      "name": "asked_what_weighs_most",
+      "description": "Preguntó qué pesa más para este puesto (calibración de scoring)"
+    },
+    {
+      "name": "no_premature_scraping_attempt",
+      "description": "No intentó iniciar el scraping antes de recibir las respuestas de calibración"
+    }
+  ]
+}

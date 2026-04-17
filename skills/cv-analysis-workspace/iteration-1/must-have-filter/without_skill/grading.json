@@ -1,0 +1,26 @@
+{
+  "eval_name": "must-have-filter",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "must_have_gate_applied_as_explicit_step",
+      "passed": false,
+      "evidence": "El agente llegó a la conclusión correcta pero por razonamiento general — 'fue inferido dentro del análisis general', no como gate estructural. Riesgo de inconsistencia entre candidatos"
+    },
+    {
+      "text": "no_dimensional_score_for_disqualified",
+      "passed": false,
+      "evidence": "Calculó un score '3/10' usando escala propia, no el protocolo DETA. Gastó tokens en scoring de candidato descalificado"
+    },
+    {
+      "text": "correct_recommendation_no_interview",
+      "passed": true,
+      "evidence": "Llegó a la conclusión de NO entrevistar por razonamiento general"
+    },
+    {
+      "text": "must_have_failure_documented",
+      "passed": true,
+      "evidence": "Mencionó 'cero experiencia en ventas. Todo su historial es operativo/logístico'"
+    }
+  ]
+}

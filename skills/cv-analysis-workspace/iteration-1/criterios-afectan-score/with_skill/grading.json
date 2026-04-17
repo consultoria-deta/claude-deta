@@ -1,0 +1,31 @@
+{
+  "eval_name": "criterios-afectan-score",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "score_above_75",
+      "passed": true,
+      "evidence": "Score total: 88/100 — Sólido"
+    },
+    {
+      "text": "criterios_cliente_in_evidence",
+      "passed": true,
+      "evidence": "'AFORE Invercap es sector financiero, Jidosha Automotriz es sector automotriz. No es inferencia. Los dos sectores preferidos están en el CV con métricas'"
+    },
+    {
+      "text": "deta_dimensions_used",
+      "passed": true,
+      "evidence": "Dimensiones: experiencia_tecnica (50%), fit_organizacional (20%), escolaridad (10%), condiciones (10%), must_haves_bonus (10%)"
+    },
+    {
+      "text": "must_haves_bonus_dimension_present",
+      "passed": true,
+      "evidence": "must_haves_bonus: score 100, ponderado 10.0 — incluido en la tabla de resultados"
+    },
+    {
+      "text": "concrete_evidence_with_metrics",
+      "passed": true,
+      "evidence": "Cita: 'cuota mensual $1.2M, 118% de cumplimiento promedio', 'promedio 12 unidades/mes, top performer 2019', 'cartera de 340 clientes, captación $280K/mes'"
+    }
+  ]
+}

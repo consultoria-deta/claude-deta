@@ -1,0 +1,26 @@
+{
+  "skill_name": "cv-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "must-have-filter",
+      "prompt": "Usa el skill cv-analysis para evaluar este candidato.\n\nPuesto: Ejecutivo Comercial — empresa de software B2B, CDMX\nMust-have definido por el cliente: mínimo 2 años de experiencia directa en ventas (cualquier sector). Sin esto, no entrevistar.\nCriterios del cliente: preferimos perfil comercial sobre técnico.\n\nCV del candidato (José Gerardo Moreno Barboza):\n---\nJosé Gerardo Moreno Barboza\nExperiencia:\n- 2022-presente: Supervisor de Almacén, Distribuidora Norteña SA — control de inventarios, coordinación de personal operativo (8 personas), reportes de merma y recepción de producto.\n- 2019-2022: Auxiliar de Producción, Maquiladora del Norte — operación de maquinaria CNC, control de calidad en línea, registro de producción diaria.\n- 2017-2019: Almacenista, Comercial CHEDRAUI — surtido de producto, inventario cíclico.\nEscolaridad: Técnico en Logística, CONALEP 2017.\nUbicación: Chihuahua, Chih. Expectativa: $14,000 netos.\n---\n\n¿Vale la pena entrevistar? Dame el resultado del análisis.",
+      "expected_output": "El skill debe aplicar el filtro must-have ANTES de calcular score. Resultado esperado: candidato descartado automáticamente porque no tiene experiencia en ventas. El output debe mencionar explícitamente el must-have incumplido, NO calcular score por dimensiones, y recomendar claramente no entrevistar.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "criterios-afectan-score",
+      "prompt": "Usa el skill cv-analysis para scorear a este candidato.\n\nPuesto: Ejecutivo de Ventas — empresa de energía renovable, Monterrey\nMust-have: experiencia en ventas (cualquier sector, mínimo 1 año).\nCriterios del cliente: preferimos candidatos con experiencia en sector financiero (seguros, AFORE, crédito) o automotriz sobre ventas técnicas. El producto se puede enseñar; la mentalidad consultiva de cierre, no.\nEscolaridad mínima: preparatoria terminada.\nRango salarial: $15,000–$25,000 MXN netos + comisiones.\n\nCV del candidato (David Salatiel Mata García):\n---\nDavid Salatiel Mata García\ndavidsalatielmatagarcia@gmail.com | (81) 1082 5257\nExperiencia:\n- 2021-presente: Gerente Regional de Ventas, Moreno Diesel (Chihuahua) — manejo de equipo de 6 vendedores, cuota mensual $1.2M en venta de maquinaria y refacciones industriales, 118% de cumplimiento promedio.\n- 2018-2021: Ejecutivo de Ventas, Jidosha Automotriz — venta de vehículos nuevos y seminuevos, promedio 12 unidades/mes, top performer del distribuidor en 2019.\n- 2015-2018: Asesor Financiero, AFORE Invercap — prospección de afiliados, cartera de 340 clientes activos, captación promedio $280K/mes en ahorro previsional.\nEscolaridad: Lic. Administración de Empresas (trunca, 7 semestres), Universidad La Salle Chihuahua.\nUbicación: Chihuahua (disponible a reubicar). Expectativa: $22,000 + comisiones.\n---\n\nDame el score completo y recomendación.",
+      "expected_output": "El skill debe: (1) pasar el filtro must-have (tiene ventas), (2) asignar score ≥ 75 (Sólido o superior), (3) en la evidencia de experiencia_tecnica mencionar explícitamente AFORE/automotriz como razón del score alto en relación a los criterios del cliente, (4) reflejar que los criterios del cliente influyeron en la puntuación — no solo listar el CV sino conectarlo con los criterios dados.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "kickoff-preguntas-obligatorias",
+      "prompt": "quiero analizar los candidatos que tengo en OCC para la vacante de Gerente de Operaciones, el job_id es 88776 y el sheet es 1BxkZ9QwertySheetId456",
+      "expected_output": "El skill NO debe iniciar el scraping. Debe hacer al menos las 3 preguntas de calibración: (1) qué pesa más / must-have sin el cual no se entrevista, (2) sectores o perfiles preferidos o descartados, (3) algún criterio adicional del cliente. Solo después de recibir estas respuestas debe proceder. Si empieza a scrapear sin preguntar, es un fallo.",
+      "files": []
+    }
+  ]
+}

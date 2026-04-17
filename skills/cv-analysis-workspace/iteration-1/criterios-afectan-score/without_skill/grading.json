@@ -1,0 +1,31 @@
+{
+  "eval_name": "criterios-afectan-score",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "score_above_75",
+      "passed": true,
+      "evidence": "Score total: 82/100"
+    },
+    {
+      "text": "criterios_cliente_in_evidence",
+      "passed": true,
+      "evidence": "Mencionó 'AFORE Invercap cubre financiero, Jidosha cubre automotriz' en la evidencia"
+    },
+    {
+      "text": "deta_dimensions_used",
+      "passed": false,
+      "evidence": "Usó dimensiones propias: 'Experiencia en ventas (must-have)', 'Sector preferido', 'Indicadores de desempeño' — no las dimensiones DETA estándar"
+    },
+    {
+      "text": "must_haves_bonus_dimension_present",
+      "passed": false,
+      "evidence": "No incluyó dimensión must_haves_bonus — usó un esquema de scoring distinto"
+    },
+    {
+      "text": "concrete_evidence_with_metrics",
+      "passed": true,
+      "evidence": "Mencionó AFORE + automotriz con contexto, aunque menos detallado que el resultado con skill"
+    }
+  ]
+}

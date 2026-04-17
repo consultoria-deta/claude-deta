@@ -1,0 +1,26 @@
+{
+  "eval_name": "kickoff-preguntas-obligatorias",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "asked_must_have_question",
+      "passed": false,
+      "evidence": "Preguntó sobre volumen de candidatos, estructura del sheet, perfil del puesto y tipo de output — no preguntó específicamente por must-haves"
+    },
+    {
+      "text": "asked_sector_or_criteria_preference",
+      "passed": false,
+      "evidence": "No preguntó por sectores preferidos ni criterios del cliente para el scoring"
+    },
+    {
+      "text": "asked_what_weighs_most",
+      "passed": false,
+      "evidence": "No preguntó qué pesa más para el puesto — las preguntas fueron operativas (volumen, formato), no de calibración de scoring"
+    },
+    {
+      "text": "no_premature_scraping_attempt",
+      "passed": true,
+      "evidence": "No intentó ejecutar scraping sin calibración — hizo preguntas primero"
+    }
+  ]
+}

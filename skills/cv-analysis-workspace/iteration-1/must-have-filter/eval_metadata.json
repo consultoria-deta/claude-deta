@@ -1,0 +1,23 @@
+{
+  "eval_id": 1,
+  "eval_name": "must-have-filter",
+  "prompt": "Evalúa a José Gerardo Moreno Barboza (perfil operativo/logístico, cero ventas) para Ejecutivo Comercial con must-have de 2 años en ventas. ¿Vale la pena entrevistar?",
+  "assertions": [
+    {
+      "name": "must_have_gate_applied_as_explicit_step",
+      "description": "El filtro must-have se aplica como paso estructural explícito ANTES de calcular score, no como inferencia dentro del análisis general"
+    },
+    {
+      "name": "no_dimensional_score_for_disqualified",
+      "description": "No se calculan scores por dimensión (experiencia_tecnica, fit_org, etc.) para candidatos que no pasan el must-have"
+    },
+    {
+      "name": "correct_recommendation_no_interview",
+      "description": "La recomendación final es no entrevistar al candidato"
+    },
+    {
+      "name": "must_have_failure_documented",
+      "description": "El output menciona explícitamente cuál must-have no se cumplió (ausencia de experiencia en ventas)"
+    }
+  ]
+}

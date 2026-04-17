@@ -1,0 +1,26 @@
+{
+  "eval_name": "must-have-filter",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "must_have_gate_applied_as_explicit_step",
+      "passed": true,
+      "evidence": "El agente aplicó el filtro must-have como paso explícito antes de calcular score: 'Score automático: 0' y 'El filtro must-have descartó al candidato antes de llegar al scoring'"
+    },
+    {
+      "text": "no_dimensional_score_for_disqualified",
+      "passed": true,
+      "evidence": "No se calcularon dimensiones (experiencia_tecnica, fit_org, etc.). Solo score automático 0 por falta de must-have"
+    },
+    {
+      "text": "correct_recommendation_no_interview",
+      "passed": true,
+      "evidence": "Veredicto explícito: 'No entrevistar'"
+    },
+    {
+      "text": "must_have_failure_documented",
+      "passed": true,
+      "evidence": "Menciona explícitamente: 'José Gerardo no tiene ningún año de experiencia en ventas — su historial completo es logística y manufactura'"
+    }
+  ]
+}

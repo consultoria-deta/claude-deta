@@ -1,0 +1,26 @@
+{
+  "eval_name": "kickoff-preguntas-obligatorias",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "asked_must_have_question",
+      "passed": true,
+      "evidence": "Preguntó '¿Cuál es el requisito no negociable (must-have) sin el cual no tiene caso entrevistar?' como una de las 3 preguntas obligatorias"
+    },
+    {
+      "text": "asked_sector_or_criteria_preference",
+      "passed": true,
+      "evidence": "Preguntó '¿Hay sectores de experiencia previa que prefieras o que descarten automáticamente?' como segunda pregunta de calibración"
+    },
+    {
+      "text": "asked_what_weighs_most",
+      "passed": true,
+      "evidence": "Preguntó '¿Qué pesa más para este puesto?' como primera pregunta de calibración"
+    },
+    {
+      "text": "no_premature_scraping_attempt",
+      "passed": true,
+      "evidence": "Ofreció iniciar scraping en paralelo mientras espera respuestas — no lo ejecutó sin calibración. Identificó CV_DIR y PERFIL como inputs faltantes"
+    }
+  ]
+}
