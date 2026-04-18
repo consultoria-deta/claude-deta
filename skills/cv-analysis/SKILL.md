@@ -55,8 +55,8 @@ Verificar redirección a `/hirer-center/`. Si falla: screenshot y reportar.
 
 Credenciales por default:
 ```
-email:    consultoria@detaconsultores.com
-password: hrvalues21
+email:    XXXXXXXX
+password: XXXXXXXX
 ```
 
 ### Paso 1.2 — Descubrir todos los CV IDs (MCP Playwright)
